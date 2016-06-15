@@ -1,0 +1,14 @@
+﻿ 2016-05-02 02:28:00,379 [P14344/D7/T60] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-05-01 02:28:00
+ 2016-05-02 06:28:00,393 [P14344/D7/T60] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-05-01 06:28:00
+ 2016-05-02 09:53:45,073 [P14344/D7/T433] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Terminating
+ 2016-05-02 09:53:45,074 [P14344/D7/T433] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Waiting for tasks to complete
+ 2016-05-02 09:53:45,077 [P14344/D7/T433] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Terminating
+ 2016-05-02 09:53:45,077 [P14344/D7/T433] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Waiting for tasks to complete
+ 2016-05-02 09:53:45,077 [P14344/D7/T433] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Terminating
+ 2016-05-02 09:53:45,077 [P14344/D7/T433] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Waiting for tasks to complete
+ 2016-05-02 09:53:45,084 [P14344/D7/T60] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Tasks completed, terminated
+ 2016-05-02 09:53:45,084 [P14344/D7/T383] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Tasks completed, terminated
+ 2016-05-02 09:53:45,085 [P14344/D7/T425] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Tasks completed, terminated
+ 2016-05-02 09:53:45,113 [P14344/D7/T433] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Terminating
+ 2016-05-02 09:53:45,113 [P14344/D7/T433] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Waiting for tasks to complete
+ 2016-05-02 09:53:45,114 [P14344/D7/T428] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Tasks completed, terminated

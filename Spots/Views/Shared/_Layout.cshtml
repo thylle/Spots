@@ -1,0 +1,67 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@CurrentPage.Name</title>
+    <link href="~/Assets/Stylesheets/Bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/Stylesheets/Main.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body xmlns:ng="http://angularjs.org" data-ng-app="spots" data-ng-controller="mainController">
+<div class="loading-indicator"></div>
+    <div class="wrapper">
+        <header>
+            <div class="container">
+                @Html.Partial("_MainNavigation")
+            </div>
+        </header>
+        <section>
+            <div class="container">
+                <h1>@CurrentPage.Name</h1>
+
+                <div class="row">
+                    <div class="spots" isotope-container="spots">
+                        <article class="col-xs-6 col-sm-3 col-md-3 spot-col  isotope-spot" data-ng-class="{'spot-col-active' : activeId == spot.Id}" isotope-item="isotope-spot" data-ng-repeat="spot in spots" data-ng-click="setActiveId(spot.Id)" data-ng-cloak>
+                            <div class="spot">
+                                <div class="spot-image" style="background-image: url({{spot.Image}})"></div>
+                                <div class="spot-content">
+                                    <h1 class="spot-title">#{{spot.Id}} - {{spot.Name}}</h1>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                @RenderBody()
+            </div>
+        </section>
+    </div>
+
+    <div>
+        <a href="http://codepen.io/davidkpiano/full/NGYjZv/">Transition</a>
+    </div>
+    @*Frameworks*@
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="~/Assets/Scripts/Frameworks/loading-bar.js"></script>
+    <script src="~/Assets/Scripts/Frameworks/isotope.min.js"></script>
+    <script src="~/Assets/Scripts/Frameworks/angular.isotope.min.js"></script>
+
+    @*Angular*@
+    <script src="~/App/spots.app.js"></script>
+    <script src="~/App/Services/spots.service.js"></script>
+    <script src="~/App/Controllers/main.controller.js"></script>
+
+</body>
+</html>

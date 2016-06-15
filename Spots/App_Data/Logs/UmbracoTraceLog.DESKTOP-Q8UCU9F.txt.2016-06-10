@@ -1,0 +1,50 @@
+﻿ 2016-06-10 02:19:14,108 [P13120/D2/T13] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-06-09 02:19:14
+ 2016-06-10 06:19:14,111 [P13120/D2/T195] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-06-09 06:19:14
+ 2016-06-10 10:19:14,129 [P13120/D2/T195] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-06-09 10:19:14
+ 2016-06-10 12:49:24,589 [P13120/D2/T15] ERROR Umbraco.Web.Scheduling.ScheduledPublishing - Failed (at "http://2c3c7b22.ngrok.io:80/umbraco").
+System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 198.58.98.92:80
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Umbraco.Web.Scheduling.ScheduledPublishing.<PerformRunAsync>d__5.MoveNext()
+ 2016-06-10 12:50:45,691 [P13120/D2/T15] ERROR Umbraco.Web.Scheduling.ScheduledPublishing - Failed (at "http://2c3c7b22.ngrok.io:80/umbraco").
+System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 198.58.98.92:80
+   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Umbraco.Web.Scheduling.ScheduledPublishing.<PerformRunAsync>d__5.MoveNext()
+ 2016-06-10 14:19:14,144 [P13120/D2/T195] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-06-09 14:19:14
+ 2016-06-10 18:19:14,157 [P13120/D2/T232] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-06-09 18:19:14
+ 2016-06-10 22:19:14,160 [P13120/D2/T232] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-06-09 22:19:14
+ 2016-06-10 23:18:06,861 [P13120/D2/T193] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Terminating
+ 2016-06-10 23:18:06,861 [P13120/D2/T193] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Waiting for tasks to complete
+ 2016-06-10 23:18:06,863 [P13120/D2/T193] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Terminating
+ 2016-06-10 23:18:06,863 [P13120/D2/T193] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Waiting for tasks to complete
+ 2016-06-10 23:18:06,867 [P13120/D2/T232] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Tasks completed, terminated
+ 2016-06-10 23:18:06,868 [P13120/D2/T134] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Tasks completed, terminated
+ 2016-06-10 23:18:06,879 [P13120/D2/T193] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Terminating
+ 2016-06-10 23:18:06,879 [P13120/D2/T193] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Waiting for tasks to complete
+ 2016-06-10 23:18:06,879 [P13120/D2/T193] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Terminating
+ 2016-06-10 23:18:06,879 [P13120/D2/T193] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Waiting for tasks to complete
+ 2016-06-10 23:18:06,879 [P13120/D2/T203] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Tasks completed, terminated
+ 2016-06-10 23:18:06,879 [P13120/D2/T221] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Tasks completed, terminated
+ 2016-06-10 23:18:36,942 [P13120/D2/T193] INFO  Umbraco.Core.UmbracoApplicationBase - Application shutdown. Details: HostingEnvironment
+
+_shutDownMessage=HostingEnvironment initiated shutdown
+HostingEnvironment caused shutdown
+
+_shutDownStack=   at System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   at System.Environment.get_StackTrace()
+   at System.Web.Hosting.HostingEnvironment.InitiateShutdownInternal()
+   at System.Web.Hosting.HostingEnvironment.InitiateShutdownWithoutDemand()
+   at System.Web.Hosting.PipelineRuntime.StopProcessing()

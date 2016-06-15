@@ -1,0 +1,25 @@
+﻿ 2016-06-01 01:23:03,489 [P18216/D3/T322] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-05-31 01:23:03
+ 2016-06-01 05:23:03,505 [P18216/D3/T322] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-05-31 05:23:03
+ 2016-06-01 09:23:03,507 [P18216/D3/T322] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-05-31 09:23:03
+ 2016-06-01 12:07:05,779 [P18216/D3/T10] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Terminating
+ 2016-06-01 12:07:05,779 [P18216/D3/T10] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Waiting for tasks to complete
+ 2016-06-01 12:07:05,780 [P18216/D3/T10] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Terminating
+ 2016-06-01 12:07:05,780 [P18216/D3/T10] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Waiting for tasks to complete
+ 2016-06-01 12:07:05,780 [P18216/D3/T10] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Terminating
+ 2016-06-01 12:07:05,780 [P18216/D3/T10] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Waiting for tasks to complete
+ 2016-06-01 12:07:05,780 [P18216/D3/T10] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Terminating
+ 2016-06-01 12:07:05,780 [P18216/D3/T10] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Waiting for tasks to complete
+ 2016-06-01 12:07:05,785 [P18216/D3/T23] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [LogScrubber] Tasks completed, terminated
+ 2016-06-01 12:07:05,785 [P18216/D3/T27] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [KeepAlive] Tasks completed, terminated
+ 2016-06-01 12:07:05,785 [P18216/D3/T202] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledPublishing] Tasks completed, terminated
+ 2016-06-01 12:07:05,785 [P18216/D3/T26] INFO  Umbraco.Web.Scheduling.BackgroundTaskRunner - [ScheduledTasks] Tasks completed, terminated
+ 2016-06-01 12:07:35,926 [P18216/D3/T346] INFO  Umbraco.Core.UmbracoApplicationBase - Application shutdown. Details: HostingEnvironment
+
+_shutDownMessage=HostingEnvironment initiated shutdown
+HostingEnvironment caused shutdown
+
+_shutDownStack=   at System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   at System.Environment.get_StackTrace()
+   at System.Web.Hosting.HostingEnvironment.InitiateShutdownInternal()
+   at System.Web.Hosting.HostingEnvironment.InitiateShutdownWithoutDemand()
+   at System.Web.Hosting.PipelineRuntime.StopProcessing()
