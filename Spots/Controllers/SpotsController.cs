@@ -12,53 +12,102 @@ using Umbraco.Web;
 using Umbraco.Web.WebApi;
 using System.Web.Http.Cors;
 using Spots.HelperClasses;
+using umbraco;
+using umbraco.cms.businesslogic.web;
+using umbraco.cms.helpers;
 
 
 namespace Spots.Controllers
 {
-    [EnableCors(origins: "http://spotsApp.local", headers: "*", methods: "*")]
     public class SpotsController : UmbracoApiController {
 
-        public IEnumerable<Spot> GetAllSpots (int parentId = 1054) {
+        public IEnumerable<Spot> GetAllSpots (){
 
-            UmbracoHelper helper = new UmbracoHelper(UmbracoContext);
+            var helper = new UmbracoHelper(UmbracoContext);
             
-            var response = helper.TypedContent(parentId)
+            var spotsContainer = helper.TypedContentAtRoot().DescendantsOrSelf("Spots").FirstOrDefault();
+
+            var response = helper.TypedContent(spotsContainer.Id)
                 .Children
                 .Select(obj => new Spot() {
                     Id = obj.Id,
                     Name = obj.GetPropertyValue<string>(PropertyAliasConstants.Name),
+                    Category = obj.GetPropertyValue<string>(PropertyAliasConstants.Category) ?? "",
                     Description = obj.GetPropertyValue<string>(PropertyAliasConstants.Description),
                     Latitude = obj.GetPropertyValue<string>(PropertyAliasConstants.Latitude),
                     Longitude = obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude),
+                    Image = obj.GetPropertyValue<string>(PropertyAliasConstants.Image) != null 
+                        ? Umbraco.TypedMedia(obj.GetPropertyValue<string>(PropertyAliasConstants.Image)).Url 
+                        : "/resources/images/no-image.jpg",
                     Distance = null,
                     DrivingDistance = null,
                     DrivingDuration = null,
-                    Image = "img/demo/kitespot-" + obj.Index() + ".jpg"
+                    LastCheckInDate = obj.GetPropertyValue<DateTime>(PropertyAliasConstants.LastCheckInDate),
+                    CheckIns =  obj.GetPropertyValue<int>(PropertyAliasConstants.CheckIns)
                 });
 
             return response;
         }
 
-        // GET: Spots/Details/5
+        // GET: Umbraco/Api/Spots/GetSpotById?spotId=1055
         public Spot GetSpotById (int spotId) {
 
             Spot currentSpot = new Spot();
             UmbracoHelper helper = new UmbracoHelper(UmbracoContext);
 
+            var today = DateTime.Today.ToShortDateString();
             var response = helper.Content(spotId);
 
             currentSpot.Id = spotId;
             currentSpot.Name = response.GetPropertyValue<string>(PropertyAliasConstants.Name);
+            currentSpot.Category = response.GetPropertyValue<string>(PropertyAliasConstants.Category);
             currentSpot.Description = response.GetPropertyValue<string>(PropertyAliasConstants.Description);
             currentSpot.Latitude = response.GetPropertyValue<string>(PropertyAliasConstants.Latitude);
             currentSpot.Longitude = response.GetPropertyValue<string>(PropertyAliasConstants.Longitude);
             currentSpot.Distance = null;
             currentSpot.DrivingDistance = null;
             currentSpot.DrivingDuration = null;
-            currentSpot.Image = "img/demo/kitespot-0.jpg";
+            currentSpot.Image = response.GetPropertyValue<string>(PropertyAliasConstants.Image) != null
+                ? Umbraco.TypedMedia(response.GetPropertyValue<string>(PropertyAliasConstants.Image)).Url 
+                : "/resources/images/no-image.jpg";
+            currentSpot.LastCheckInDate = response.GetPropertyValue<DateTime>(PropertyAliasConstants.LastCheckInDate);
+            currentSpot.CheckIns = response.GetPropertyValue<int>(PropertyAliasConstants.CheckIns);
 
+            //If the last time the last check-in was made is NOT today, we reset it
+            if (Convert.ToDateTime(currentSpot.LastCheckInDate).ToShortDateString() != today) {
+                currentSpot.CheckIns = 0;
+            }
+            
             return currentSpot;
+        }
+
+
+        // POST: /Umbraco/Api/Spots/CheckIn?spotId=1055
+        public void CheckIn (int spotId) {
+
+    		try{
+    			var contentService = Services.ContentService;
+	            var currentSpot = contentService.GetById(spotId);
+
+                var checkIns = currentSpot.GetValue<int>(PropertyAliasConstants.CheckIns);
+                var lastCheckInDate = currentSpot.GetValue<DateTime>(PropertyAliasConstants.LastCheckInDate).ToShortDateString();
+    		    var today = DateTime.Today.ToShortDateString();
+
+                //If the last time the last check-in was made is today, we add a new check-in
+                if (lastCheckInDate == today) {
+                    checkIns = checkIns + 1;
+                }
+                else{
+                    checkIns = 1;
+                }
+
+                currentSpot.SetValue(PropertyAliasConstants.CheckIns, checkIns);
+                currentSpot.SetValue(PropertyAliasConstants.LastCheckInDate, DateTime.Now);
+
+	        	contentService.SaveAndPublishWithStatus(currentSpot);
+    		}
+    		catch (Exception ex){
+    		}
         }
 
         //// GET: Spots/Create

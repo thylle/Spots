@@ -1,28 +1,25 @@
 ﻿(function () {
     'use strict';
 
-    initController.$inject = ['$scope', '$timeout', 'spotsService', 'cfpLoadingBar'];
+    initController.$inject = ['$scope', '$timeout', 'spotsService'];
 
     angular
         .module('spots')
         .controller('mainController', initController);
 
-    function initController($scope, $timeout, spotsService, cfpLoadingBar) {
+    function initController($scope, $timeout, spotsService) {
 
         $scope.$timeout = $timeout;
         $scope.spots = null;
         $scope.activeId = null;
 
-        //fake the loading time - to make time to show animation and show elements more fluid
-        cfpLoadingBar.start();
-        //cfpLoadingBar.complete();
 
         spotsService.getData().success(function (response) {
             console.log("success", response);
             $scope.spots = response;
 
         }).error(function () {
-            console.log("error", response);
+            console.log("error getting spots");
         });;
 
 

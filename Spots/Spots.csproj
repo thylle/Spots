@@ -312,22 +312,8 @@
     <Content Include="App\Controllers\main.controller.js" />
     <Content Include="App\Services\spots.service.js" />
     <Content Include="App\spots.app.js" />
-    <Content Include="Assets\Images\nature-0.jpg" />
-    <Content Include="Assets\Images\nature-1.jpg" />
-    <Content Include="Assets\Images\nature-2.jpg" />
-    <Content Include="Assets\Images\nature-3.jpg" />
-    <Content Include="Assets\Images\nature-4.jpg" />
-    <Content Include="Assets\Images\nature-5.jpg" />
-    <Content Include="Assets\Scripts\Frameworks\angular.isotope.min.js" />
-    <Content Include="Assets\Scripts\Frameworks\isotope.min.js" />
-    <Content Include="Assets\Scripts\Frameworks\loading-bar.js" />
-    <Content Include="Assets\Stylesheets\Main.css">
-      <DependentUpon>Main.scss</DependentUpon>
-    </Content>
-    <Content Include="Assets\Stylesheets\Main.min.css">
-      <DependentUpon>Main.css</DependentUpon>
-    </Content>
     <Content Include="packages.config" />
+    <Content Include="Resources\images\no-image.jpg" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
@@ -359,8 +345,6 @@
     <Content Include="Views\Spots.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Partials\_MainNavigation.cshtml" />
-    <Content Include="Assets\Stylesheets\Bootstrap\bootstrap.css.map" />
-    <Content Include="Assets\Stylesheets\Main.scss" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -373,8 +357,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Scripts\angular.min.js" />
-    <Content Include="Assets\Stylesheets\Bootstrap\bootstrap.min.css" />
     <Content Include="Config\grid.editors.config.js" />
     <Content Include="Config\Lang\cs-CZ.user.xml" />
     <Content Include="Config\Lang\da-DK.user.xml" />
@@ -409,7 +391,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Fonts\" />
     <Folder Include="media\" />
   </ItemGroup>
   <PropertyGroup>

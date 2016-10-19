@@ -2,30 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Umbraco.Core.Models;
 
 namespace Spots.Models {
     public class Spot {
 
-        public int Id {
+        public int Id
+        {
             get; set;
         }
-        public string Name {
+        public string Name
+        {
             get; set;
         }
-
-        public string Description {
-            get; set;
-        }
-
-        public string Image {
-            get; set;
-        }
-
-        public string Latitude{
+        public string Category
+        {
             get; set;
         }
 
-        public string Longitude{
+        public string Description
+        {
+            get; set;
+        }
+
+        public string Image
+        {
+            get; set;
+        }
+
+        public string Latitude
+        {
+            get; set;
+        }
+
+        public string Longitude
+        {
             get; set;
         }
 
@@ -40,6 +51,16 @@ namespace Spots.Models {
         }
 
         public string DrivingDuration
+        {
+            get; set;
+        }
+
+        public int CheckIns
+        {
+            get; set;
+        }
+
+        public DateTime? LastCheckInDate
         {
             get; set;
         }
