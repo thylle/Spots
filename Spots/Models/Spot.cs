@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Spots.Services;
+using Spots.ViewModels;
 using Umbraco.Core.Models;
 
 namespace Spots.Models {
@@ -61,6 +63,24 @@ namespace Spots.Models {
         }
 
         public DateTime? LastCheckInDate
+        {
+            get; set;
+        }
+
+        public string OptimalWindSpeed
+        {
+            get; set;
+        }
+        public string OptimalWindDirection
+        {
+            get; set;
+        }
+        public string OptimalWaterHeight
+        {
+            get; set;
+        }
+
+        public WeatherData Weather
         {
             get; set;
         }

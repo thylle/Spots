@@ -14,6 +14,13 @@ namespace Spots.Constants {
         public const string Image = "Image";
         public const string CheckIns = "checkIns";
         public const string LastCheckInDate = "lastCheckInDate";
+
+        //Info properties
+        public const string OptimalWindSpeed = "optimalWindSpeed";
+        public const string OptimalWindDirection = "optimalWindDirection";
+        public const string OptimalWaterHeight = "optimalWaterHeight";
+
+        public const string WeatherUrl = "weatherUrl";
         
     }
 

@@ -12,6 +12,7 @@ using Umbraco.Web;
 using Umbraco.Web.WebApi;
 using System.Web.Http.Cors;
 using Spots.HelperClasses;
+using Spots.Services;
 using umbraco;
 using umbraco.cms.businesslogic.web;
 using umbraco.cms.helpers;
@@ -28,7 +29,8 @@ namespace Spots.Controllers
             var spotsContainer = helper.TypedContentAtRoot().DescendantsOrSelf("Spots").FirstOrDefault();
 
             var response = helper.TypedContent(spotsContainer.Id)
-                .Children
+                .Descendants(DocumentTypeAliasConstants.Spot)
+                .Where("Visible")
                 .Select(obj => new Spot() {
                     Id = obj.Id,
                     Name = obj.GetPropertyValue<string>(PropertyAliasConstants.Name),
@@ -38,12 +40,7 @@ namespace Spots.Controllers
                     Longitude = obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude),
                     Image = obj.GetPropertyValue<string>(PropertyAliasConstants.Image) != null 
                         ? Umbraco.TypedMedia(obj.GetPropertyValue<string>(PropertyAliasConstants.Image)).Url 
-                        : "/resources/images/no-image.jpg",
-                    Distance = null,
-                    DrivingDistance = null,
-                    DrivingDuration = null,
-                    LastCheckInDate = obj.GetPropertyValue<DateTime>(PropertyAliasConstants.LastCheckInDate),
-                    CheckIns =  obj.GetPropertyValue<int>(PropertyAliasConstants.CheckIns)
+                        : "/resources/images/no-image.jpg"
                 });
 
             return response;
@@ -64,14 +61,15 @@ namespace Spots.Controllers
             currentSpot.Description = response.GetPropertyValue<string>(PropertyAliasConstants.Description);
             currentSpot.Latitude = response.GetPropertyValue<string>(PropertyAliasConstants.Latitude);
             currentSpot.Longitude = response.GetPropertyValue<string>(PropertyAliasConstants.Longitude);
-            currentSpot.Distance = null;
-            currentSpot.DrivingDistance = null;
-            currentSpot.DrivingDuration = null;
             currentSpot.Image = response.GetPropertyValue<string>(PropertyAliasConstants.Image) != null
                 ? Umbraco.TypedMedia(response.GetPropertyValue<string>(PropertyAliasConstants.Image)).Url 
                 : "/resources/images/no-image.jpg";
             currentSpot.LastCheckInDate = response.GetPropertyValue<DateTime>(PropertyAliasConstants.LastCheckInDate);
             currentSpot.CheckIns = response.GetPropertyValue<int>(PropertyAliasConstants.CheckIns);
+            currentSpot.OptimalWindSpeed = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindSpeed);
+            currentSpot.OptimalWindDirection = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindDirection);
+            currentSpot.OptimalWaterHeight = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWaterHeight);
+            currentSpot.Weather = WeatherInfoService.GetWeatherFeed(response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl));
 
             //If the last time the last check-in was made is NOT today, we reset it
             if (Convert.ToDateTime(currentSpot.LastCheckInDate).ToShortDateString() != today) {
@@ -108,6 +106,28 @@ namespace Spots.Controllers
     		}
     		catch (Exception ex){
     		}
+        }
+
+
+        // POST: /Umbraco/Api/Spots/CheckIn?spotId=1055
+        public void CheckOut (int spotId) {
+
+            try {
+                var contentService = Services.ContentService;
+                var currentSpot = contentService.GetById(spotId);
+                var checkIns = currentSpot.GetValue<int>(PropertyAliasConstants.CheckIns);
+
+                //If the last time the last check-in was made is today, we remove a new check-in
+                if (checkIns > 0) {
+                    checkIns = checkIns - 1;
+                }
+
+                currentSpot.SetValue(PropertyAliasConstants.CheckIns, checkIns);
+
+                contentService.SaveAndPublishWithStatus(currentSpot);
+            }
+            catch (Exception ex) {
+            }
         }
 
         //// GET: Spots/Create
