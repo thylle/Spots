@@ -2,3 +2,28 @@
 @{
     Layout = "Shared/_Layout.cshtml";
 }
+
+<section>
+    <div class="container">
+         <h1>@CurrentPage.Name</h1>
+
+        <table class="spots table">
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Lat</th>
+                <th>Long</th>
+            </tr>
+            <tr class="" data-ng-repeat="spot in spots">
+                <td>{{spot.Id}}</td>
+                <td style="max-width: 50px; word-wrap: break-word;"><img width="100%;" ng-src="{{spot.Image}}?width=50" alt=""/></td>
+                <td>{{spot.Name}}</td>
+                <td>{{spot.Category}}</td>
+                <td>{{spot.Latitude}}</td>
+                <td>{{spot.Longitude}}</td>
+            </tr>
+        </table>
+    </div>
+</section>

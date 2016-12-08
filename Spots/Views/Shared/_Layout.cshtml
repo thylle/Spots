@@ -9,59 +9,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Spots API</title>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-    
     <!--[if lt IE 9]>
       <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 <body xmlns:ng="http://angularjs.org" data-ng-app="spots" data-ng-controller="mainController">
-<div class="loading-indicator"></div>
+
     <div class="wrapper">
-        <header>
-            <div class="container">
-                @*@Html.Partial("_MainNavigation")*@
-            </div>
-        </header>
-        <section>
-            <div class="container">
-                <h1>@CurrentPage.Name</h1>
-
-                <table class="spots table">
-                    <tr>
-                        <th>ID</th>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Lat</th>
-                        <th>Long</th>
-                    </tr>
-                    <tr class="" data-ng-repeat="spot in spots">
-                        <td>{{spot.Id}}</td>
-                        <td style="max-width: 50px; word-wrap: break-word;"><img width="100%;" ng-src="{{spot.Image}}?width=50" alt=""/></td>
-                        <td>{{spot.Name}}</td>
-                        <td>{{spot.Category}}</td>
-                        <td>{{spot.Latitude}}</td>
-                        <td>{{spot.Longitude}}</td>
-                    </tr>
-                </table>
-
-                @RenderBody()
-            </div>
-        </section>
+        @RenderBody()
     </div>
 
-@*Frameworks*@
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+    @*Frameworks*@
+    <script src="~/Resources/scripts/jquery.min.js"></script>
+    <script src="~/Resources/scripts/angular.min.js"></script>
 
     @*Angular*@
     <script src="~/App/spots.app.js"></script>
     <script src="~/App/Services/spots.service.js"></script>
     <script src="~/App/Controllers/main.controller.js"></script>
-
 </body>
 </html>
