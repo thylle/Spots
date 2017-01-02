@@ -47,6 +47,11 @@ namespace Spots.Models {
             get; set;
         }
 
+        public double GeoDistance
+        {
+            get; set;
+        }
+
         public string DrivingDistance
         {
             get; set;

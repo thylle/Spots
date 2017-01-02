@@ -1,33 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using Spots.Constants;
 using Spots.Models;
 using Umbraco.Web;
 using Umbraco.Web.WebApi;
-using System.Web.Http.Cors;
-using Spots.HelperClasses;
 using Spots.Services;
-using umbraco;
-using umbraco.cms.businesslogic.web;
-using umbraco.cms.helpers;
+using System.Device.Location;
 
 
-namespace Spots.Controllers
-{
+namespace Spots.Controllers {
     public class SpotsController : UmbracoApiController {
 
         public IEnumerable<Spot> GetAllSpots (){
 
             var helper = new UmbracoHelper(UmbracoContext);
-            
             var spotsContainer = helper.TypedContentAtRoot().DescendantsOrSelf("Spots").FirstOrDefault();
 
+            //TODO Get spots with position
+            GeoCoordinate currentPosition = new GeoCoordinate(56.154156, 10.207490);
+            
             var response = helper.TypedContent(spotsContainer.Id)
                 .Descendants(DocumentTypeAliasConstants.Spot)
                 .Where("Visible")
@@ -40,7 +32,10 @@ namespace Spots.Controllers
                     Longitude = obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude),
                     Image = obj.GetPropertyValue<string>(PropertyAliasConstants.Image) != null 
                         ? Umbraco.TypedMedia(obj.GetPropertyValue<string>(PropertyAliasConstants.Image)).Url 
-                        : "/resources/images/no-image.jpg"
+                        : "/resources/images/no-image.jpg",
+                    GeoDistance = obj.GetPropertyValue<string>(PropertyAliasConstants.Latitude) != "" && obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude) != ""
+                        ? Math.Round(currentPosition.GetDistanceTo(new GeoCoordinate(Convert.ToDouble(obj.GetPropertyValue<string>(PropertyAliasConstants.Latitude)), Convert.ToDouble(obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude)))) / 1000)
+                        : Double.NaN
                 });
 
             return response;
