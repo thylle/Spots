@@ -250,3 +250,14 @@ D:\Git\_Private\Spots\Spots\obj\Debug\Spots.csproj.App.config
 D:\Git\_Private\Spots\Spots\obj\Debug\Spots.csprojResolveAssemblyReference.cache
 D:\Git\_Private\Spots\Spots\obj\Debug\Spots.dll
 D:\Git\_Private\Spots\Spots\obj\Debug\Spots.pdb
+D:\Git\_Private\Spots\Spots\bin\MarkdownSharp.dll
+D:\Git\_Private\Spots\Spots\bin\Microsoft.CodeAnalysis.CSharp.dll
+D:\Git\_Private\Spots\Spots\bin\Microsoft.CodeAnalysis.dll
+D:\Git\_Private\Spots\Spots\bin\System.Collections.Immutable.dll
+D:\Git\_Private\Spots\Spots\bin\System.Reflection.Metadata.dll
+D:\Git\_Private\Spots\Spots\bin\Umbraco.ModelsBuilder.dll
+D:\Git\_Private\Spots\Spots\bin\AutoMapper.pdb
+D:\Git\_Private\Spots\Spots\bin\AutoMapper.Net4.pdb
+D:\Git\_Private\Spots\Spots\bin\Umbraco.ModelsBuilder.pdb
+D:\Git\_Private\Spots\Spots\bin\Jumoo.uSync.BackOffice.dll
+D:\Git\_Private\Spots\Spots\bin\Jumoo.uSync.Core.dll

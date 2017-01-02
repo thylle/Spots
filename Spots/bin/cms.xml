@@ -619,6 +619,11 @@
             Deletes this instance.
             </summary>
         </member>
+        <member name="P:umbraco.cms.businesslogic.datatype.DefaultData.SqlHelper">
+            <summary>
+            Unused, please do not use
+            </summary>
+        </member>
         <member name="P:umbraco.cms.businesslogic.datatype.DefaultData.Value">
             <summary>
             Gets or sets the value.
@@ -804,6 +809,11 @@
             </summary>
             <param name="Id">The internal id.</param>
         </member>
+        <member name="P:umbraco.cms.businesslogic.packager.Package.SqlHelper">
+            <summary>
+            Unused, please do not use
+            </summary>
+        </member>
         <member name="T:umbraco.cms.businesslogic.packager.standardPackageActions.addApplication">
             <summary>
             This class implements the IPackageAction Interface, used to execute code when packages are installed.
@@ -934,9 +944,8 @@
         </member>
         <member name="P:umbraco.cms.businesslogic.propertytype.PropertyTypeGroup.SqlHelper">
             <summary>
-            Gets the SQL helper.
+            Unused, please do not use
             </summary>
-            <value>The SQL helper.</value>
         </member>
         <member name="M:umbraco.cms.businesslogic.Tags.Tag.RemoveTag(System.Int32)">
             <summary>
@@ -979,6 +988,11 @@
             </summary>
             <param name="nodeId">The node id.</param>
             <returns></returns>
+        </member>
+        <member name="P:umbraco.cms.businesslogic.Tags.Tag.SqlHelper">
+            <summary>
+            Unused, please do not use
+            </summary>
         </member>
         <member name="T:umbraco.cms.businesslogic.task.Tasks">
             <summary>
@@ -1404,9 +1418,8 @@
         </member>
         <member name="P:umbraco.cms.businesslogic.CMSNode.SqlHelper">
             <summary>
-            Gets the SQL helper.
+            Unused, please do not use
             </summary>
-            <value>The SQL helper.</value>
         </member>
         <member name="P:umbraco.cms.businesslogic.CMSNode.HasChildren">
             <summary>
@@ -1719,6 +1732,11 @@
             Indication if the Content exists in at least one version.
             </summary>
             <returns>Returns true if the Content has a version</returns>
+        </member>
+        <member name="P:umbraco.cms.businesslogic.Content.ParentId">
+            <summary>
+            Get the newParent id of the node
+            </summary>
         </member>
         <member name="P:umbraco.cms.businesslogic.Content.ContentType">
             <summary>
@@ -2450,6 +2468,11 @@
             <param name="DataType">The DataType to be parsed</param>
             <param name="DisplayTextBox">Whether to use the default text box</param>
         </member>
+        <member name="P:umbraco.cms.businesslogic.datatype.DefaultPreValueEditor.SqlHelper">
+            <summary>
+            Unused, please do not use
+            </summary>
+        </member>
         <member name="T:umbraco.cms.businesslogic.datatype.controls.Factory">
             <summary>
             IDataType factory, handles the registering and retrieval of IDatatypes.
@@ -2501,6 +2524,11 @@
             </summary>
             <param name="dataTypeDefId"></param>
             <returns></returns>
+        </member>
+        <member name="P:umbraco.cms.businesslogic.Dictionary.SqlHelper">
+            <summary>
+            Unused, please do not use
+            </summary>
         </member>
         <member name="P:umbraco.cms.businesslogic.Dictionary.getTopMostItems">
             <summary>
@@ -2655,9 +2683,8 @@
         </member>
         <member name="P:umbraco.cms.businesslogic.language.Language.SqlHelper">
             <summary>
-            Gets the SQL helper.
+            Unused, please do not use
             </summary>
-            <value>The SQL helper.</value>
         </member>
         <member name="P:umbraco.cms.businesslogic.language.Language.getAll">
             <summary>
@@ -2748,9 +2775,8 @@
         </member>
         <member name="P:umbraco.cms.businesslogic.language.Item.SqlHelper">
             <summary>
-            Gets the SQL helper.
+            Unused, please do not use
             </summary>
-            <value>The SQL helper.</value>
         </member>
         <member name="T:umbraco.cms.businesslogic.macro.Macro">
             <summary>
@@ -2818,6 +2844,11 @@
             </summary>
             <param name="alias">The alias of the macro</param>
             <returns>If the macro with the given alias exists, it returns the macro, else null</returns>
+        </member>
+        <member name="P:umbraco.cms.businesslogic.macro.Macro.SqlHelper">
+            <summary>
+            Unused, please do not use
+            </summary>
         </member>
         <member name="P:umbraco.cms.businesslogic.macro.Macro.Id">
             <summary>
@@ -2959,6 +2990,11 @@
             <param name="name">Userfriendly MacroProperty name</param>
             <param name="editorAlias">The Alias of the parameter editor</param>
         </member>
+        <member name="P:umbraco.cms.businesslogic.macro.MacroProperty.SqlHelper">
+            <summary>
+            Unused, please do not use
+            </summary>
+        </member>
         <member name="P:umbraco.cms.businesslogic.macro.MacroProperty.SortOrder">
             <summary>
             The sortorder
@@ -3019,6 +3055,11 @@
             </summary>
             <param name="Alias">The alias of the MacroPropertyType</param>
         </member>
+        <member name="P:umbraco.cms.businesslogic.macro.MacroPropertyType.SqlHelper">
+            <summary>
+            Unused, please do not use
+            </summary>
+        </member>
         <member name="P:umbraco.cms.businesslogic.macro.MacroPropertyType.Id">
             <summary>
             Identifier
@@ -3042,6 +3083,11 @@
         <member name="P:umbraco.cms.businesslogic.macro.MacroPropertyType.BaseType">
             <summary>
             The IMacroGuiRendering component (namespace.namespace.Classname)
+            </summary>
+        </member>
+        <member name="T:umbraco.cms.businesslogic.packager.data">
+            <summary>
+            This is the xml data for installed packages. This is not the same xml as a pckage format!
             </summary>
         </member>
         <member name="E:umbraco.cms.businesslogic.packager.CreatedPackage.BeforeSave">
@@ -3074,6 +3120,11 @@
             <param name="packageName">Name of the package.</param>
             <param name="actionAlias">The action alias.</param>
             <param name="actionXml">The action XML.</param>
+        </member>
+        <member name="P:umbraco.cms.businesslogic.packager.PackageInstance.UmbracoVersion">
+            <summary>
+            The minimum umbraco version that this package requires
+            </summary>
         </member>
         <member name="T:umbraco.cms.businesslogic.packager.standardPackageActions.addApplicationTree">
             <summary>
@@ -3118,12 +3169,12 @@
             <param name="doc">The xml doc.</param>
             <returns></returns>
         </member>
-        <member name="M:umbraco.cms.businesslogic.packager.utill.Stylesheet(System.Int32,System.Boolean,System.Xml.XmlDocument)">
+        <member name="M:umbraco.cms.businesslogic.packager.utill.Stylesheet(System.String,System.Boolean,System.Xml.XmlDocument)">
             <summary>
             Converts a umbraco stylesheet to a package xml node
             </summary>
-            <param name="ssId">The ss id.</param>
-            <param name="incluceProperties">if set to <c>true</c> [incluce properties].</param>
+            <param name="name">The name of the stylesheet.</param>
+            <param name="includeProperties">if set to <c>true</c> [incluce properties].</param>
             <param name="doc">The doc.</param>
             <returns></returns>
         </member>
@@ -3182,28 +3233,38 @@
             Constructor
             </summary>
         </member>
-        <member name="M:umbraco.cms.businesslogic.packager.Installer.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Int32,System.String,System.String)">
+        <member name="M:umbraco.cms.businesslogic.packager.Installer.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Int32,System.String,System.String,umbraco.cms.businesslogic.packager.RequirementsType,System.String)">
             <summary>
             Constructor
             </summary>
-            <param name="Name">The name of the package</param>
-            <param name="Version">The version of the package</param>
-            <param name="Url">The url to a descriptionpage</param>
-            <param name="License">The license under which the package is released (preferably GPL ;))</param>
-            <param name="LicenseUrl">The url to a licensedescription</param>
-            <param name="Author">The original author of the package</param>
-            <param name="AuthorUrl">The url to the Authors website</param>
-            <param name="RequirementsMajor">Umbraco version major</param>
-            <param name="RequirementsMinor">Umbraco version minor</param>
-            <param name="RequirementsPatch">Umbraco version patch</param>
-            <param name="Readme">The readme text</param>
-            <param name="Control">The name of the usercontrol used to configure the package after install</param>
+            <param name="name">The name of the package</param>
+            <param name="version">The version of the package</param>
+            <param name="url">The url to a descriptionpage</param>
+            <param name="license">The license under which the package is released (preferably GPL ;))</param>
+            <param name="licenseUrl">The url to a licensedescription</param>
+            <param name="author">The original author of the package</param>
+            <param name="authorUrl">The url to the Authors website</param>
+            <param name="requirementsMajor">Umbraco version major</param>
+            <param name="requirementsMinor">Umbraco version minor</param>
+            <param name="requirementsPatch">Umbraco version patch</param>
+            <param name="readme">The readme text</param>
+            <param name="control">The name of the usercontrol used to configure the package after install</param>
+            <param name="requirementsType"></param>
+            <param name="iconUrl"></param>
+        </member>
+        <member name="M:umbraco.cms.businesslogic.packager.Installer.Import(System.String,System.Boolean)">
+            <summary>
+            Imports the specified package
+            </summary>
+            <param name="inputFile">Filename of the umbracopackage</param>
+            <param name="deleteFile">true if the input file should be deleted after import</param>
+            <returns></returns>
         </member>
         <member name="M:umbraco.cms.businesslogic.packager.Installer.Import(System.String)">
             <summary>
             Imports the specified package
             </summary>
-            <param name="InputFile">Filename of the umbracopackage</param>
+            <param name="inputFile">Filename of the umbracopackage</param>
             <returns></returns>
         </member>
         <member name="M:umbraco.cms.businesslogic.packager.Installer.InstallCleanUp(System.Int32,System.String)">
@@ -4718,6 +4779,11 @@
             Used to persist object changes to the database. In Version3.0 it's just a stub for future compatibility
             </summary>
         </member>
+        <member name="P:umbraco.cms.businesslogic.propertytype.PropertyType.SqlHelper">
+            <summary>
+            Unused, please do not use
+            </summary>
+        </member>
         <member name="P:umbraco.cms.businesslogic.propertytype.PropertyType.TabId">
             <summary>
             Setting the tab id is not meant to be used directly in code. Use the ContentType SetTabOnPropertyType method instead
@@ -4731,6 +4797,11 @@
             <summary>
             Property class encapsulates property factory, ensuring that the work
             with umbraco generic properties stays nice and easy..
+            </summary>
+        </member>
+        <member name="P:umbraco.cms.businesslogic.property.Property.SqlHelper">
+            <summary>
+            Unused, please do not use
             </summary>
         </member>
         <member name="M:umbraco.cms.businesslogic.RecycleBin.#ctor(System.Guid,umbraco.cms.businesslogic.RecycleBin.RecycleBinType)">
@@ -4786,6 +4857,11 @@
         <member name="M:umbraco.cms.businesslogic.relation.Relation.Save">
             <summary>
             Used to persist object changes to the database
+            </summary>
+        </member>
+        <member name="P:umbraco.cms.businesslogic.relation.Relation.SqlHelper">
+            <summary>
+            Unused, please do not use
             </summary>
         </member>
         <member name="T:umbraco.cms.businesslogic.relation.RelationType">
@@ -4920,9 +4996,8 @@
         </member>
         <member name="P:umbraco.cms.businesslogic.task.Task.SqlHelper">
             <summary>
-            Gets the SQL helper.
+            Unused, please do not use
             </summary>
-            <value>The SQL helper.</value>
         </member>
         <member name="M:umbraco.cms.businesslogic.task.TaskType.Delete">
             <summary>
@@ -4939,6 +5014,11 @@
         <member name="P:umbraco.cms.businesslogic.task.TaskType.Tasks">
             <summary>
             All tasks associated with this task type
+            </summary>
+        </member>
+        <member name="P:umbraco.cms.businesslogic.task.TaskType.SqlHelper">
+            <summary>
+            Unused, please do not use
             </summary>
         </member>
         <member name="T:umbraco.cms.businesslogic.template.Template">
@@ -6434,9 +6514,8 @@
         </member>
         <member name="P:umbraco.cms.businesslogic.workflow.Notification.SqlHelper">
             <summary>
-            Gets the SQL helper.
+            Unused, please do not use
             </summary>
-            <value>The SQL helper.</value>
         </member>
         <member name="T:umbraco.cms.helpers.url">
             <summary>

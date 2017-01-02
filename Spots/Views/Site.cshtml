@@ -5,7 +5,7 @@
 
 <section>
     <div class="container">
-         <h1>@CurrentPage.Name</h1>
+         <h1>@*@CurrentPage.Name*@</h1>
 
         <table class="spots table">
             <tr>
@@ -15,14 +15,16 @@
                 <th>Category</th>
                 <th>Lat</th>
                 <th>Long</th>
+                <th>GeoDistance</th>
             </tr>
-            <tr class="" data-ng-repeat="spot in spots">
+            <tr class="" data-ng-repeat="spot in spots | orderBy : 'GeoDistance'">
                 <td>{{spot.Id}}</td>
                 <td style="max-width: 50px; word-wrap: break-word;"><img width="100%;" ng-src="{{spot.Image}}?width=50" alt=""/></td>
                 <td>{{spot.Name}}</td>
                 <td>{{spot.Category}}</td>
                 <td>{{spot.Latitude}}</td>
                 <td>{{spot.Longitude}}</td>
+                <td align="right">{{spot.GeoDistance}}km</td>
             </tr>
         </table>
     </div>

@@ -1,2 +1,2 @@
-﻿<%@ Application Inherits="Spots.CustomGlobal" Language="C#" %>
+﻿<%@ Application Inherits="Umbraco.Web.UmbracoApplication" Language="C#" %>
           
