@@ -12,13 +12,15 @@ using System.Device.Location;
 namespace Spots.Controllers {
     public class SpotsController : UmbracoApiController {
 
-        public IEnumerable<Spot> GetAllSpots (){
+        public IEnumerable<Spot> GetAllSpots (string lat, string lon){
 
             var helper = new UmbracoHelper(UmbracoContext);
             var spotsContainer = helper.TypedContentAtRoot().DescendantsOrSelf("Spots").FirstOrDefault();
+            GeoCoordinate currentPosition = null;
 
-            //TODO Get spots with position
-            GeoCoordinate currentPosition = new GeoCoordinate(56.154156, 10.207490);
+            if (!string.IsNullOrWhiteSpace(lat) && !string.IsNullOrWhiteSpace(lon)){
+                currentPosition = new GeoCoordinate(Convert.ToDouble(lat), Convert.ToDouble(lon));
+            }
             
             var response = helper.TypedContent(spotsContainer.Id)
                 .Descendants(DocumentTypeAliasConstants.Spot)
@@ -33,7 +35,7 @@ namespace Spots.Controllers {
                     Image = obj.GetPropertyValue<string>(PropertyAliasConstants.Image) != null 
                         ? Umbraco.TypedMedia(obj.GetPropertyValue<string>(PropertyAliasConstants.Image)).Url 
                         : "/resources/images/no-image.jpg",
-                    GeoDistance = obj.GetPropertyValue<string>(PropertyAliasConstants.Latitude) != "" && obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude) != ""
+                    GeoDistance = currentPosition != null && obj.GetPropertyValue<string>(PropertyAliasConstants.Latitude) != "" && obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude) != ""
                         ? Math.Round(currentPosition.GetDistanceTo(new GeoCoordinate(Convert.ToDouble(obj.GetPropertyValue<string>(PropertyAliasConstants.Latitude)), Convert.ToDouble(obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude)))) / 1000)
                         : Double.NaN
                 });
