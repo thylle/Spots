@@ -15,16 +15,16 @@
                 <th>Category</th>
                 <th>Lat</th>
                 <th>Long</th>
-                <th>GeoDistance</th>
+                <th>Distance</th>
             </tr>
-            <tr class="" data-ng-repeat="spot in spots | orderBy : 'GeoDistance'">
+            <tr class="" data-ng-repeat="spot in spots | orderBy : 'Distance'">
                 <td>{{spot.Id}}</td>
                 <td style="max-width: 50px; word-wrap: break-word;"><img width="100%;" ng-src="{{spot.Image}}?width=50" alt=""/></td>
                 <td>{{spot.Name}}</td>
                 <td>{{spot.Category}}</td>
                 <td>{{spot.Latitude}}</td>
                 <td>{{spot.Longitude}}</td>
-                <td align="right">{{spot.GeoDistance}}km</td>
+                <td align="right">{{spot.Distance}}km</td>
             </tr>
         </table>
     </div>

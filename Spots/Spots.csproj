@@ -411,16 +411,6 @@
     <Content Include="Config\imageprocessor\cache.config" />
     <None Include="Properties\PublishProfiles\Spots FTP.pubxml" />
     <None Include="Properties\PublishProfiles\Spots Publish.pubxml" />
-    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -445,7 +435,9 @@
     <Compile Include="Services\WeatherInfoService.cs" />
     <Compile Include="ViewModels\WeatherFeed.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Partials\" />
+  </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />

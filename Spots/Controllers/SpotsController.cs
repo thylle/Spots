@@ -12,15 +12,13 @@ using System.Device.Location;
 namespace Spots.Controllers {
     public class SpotsController : UmbracoApiController {
 
-        public IEnumerable<Spot> GetAllSpots (string lat, string lon){
+        public IEnumerable<Spot> GetAllSpots (double lat, double lon){
 
             var helper = new UmbracoHelper(UmbracoContext);
             var spotsContainer = helper.TypedContentAtRoot().DescendantsOrSelf("Spots").FirstOrDefault();
             GeoCoordinate currentPosition = null;
 
-            if (!string.IsNullOrWhiteSpace(lat) && !string.IsNullOrWhiteSpace(lon)){
-                currentPosition = new GeoCoordinate(Convert.ToDouble(lat), Convert.ToDouble(lon));
-            }
+            currentPosition = new GeoCoordinate(Convert.ToDouble(lat), Convert.ToDouble(lon));
             
             var response = helper.TypedContent(spotsContainer.Id)
                 .Descendants(DocumentTypeAliasConstants.Spot)
@@ -35,9 +33,7 @@ namespace Spots.Controllers {
                     Image = obj.GetPropertyValue<string>(PropertyAliasConstants.Image) != null 
                         ? Umbraco.TypedMedia(obj.GetPropertyValue<string>(PropertyAliasConstants.Image)).Url 
                         : "/resources/images/no-image.jpg",
-                    GeoDistance = currentPosition != null && obj.GetPropertyValue<string>(PropertyAliasConstants.Latitude) != "" && obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude) != ""
-                        ? Math.Round(currentPosition.GetDistanceTo(new GeoCoordinate(Convert.ToDouble(obj.GetPropertyValue<string>(PropertyAliasConstants.Latitude)), Convert.ToDouble(obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude)))) / 1000)
-                        : Double.NaN
+                    Distance = CalculateDistance(currentPosition, obj.GetPropertyValue<double>(PropertyAliasConstants.Latitude), obj.GetPropertyValue<double>(PropertyAliasConstants.Longitude))
                 });
 
             return response;
@@ -67,6 +63,7 @@ namespace Spots.Controllers {
             currentSpot.OptimalWindDirection = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindDirection);
             currentSpot.OptimalWaterHeight = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWaterHeight);
             currentSpot.Weather = WeatherInfoService.GetWeatherFeed(response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl));
+            currentSpot.WeatherUrl = response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl).ToString().Replace("forecast.xml", "");
 
             //If the last time the last check-in was made is NOT today, we reset it
             if (Convert.ToDateTime(currentSpot.LastCheckInDate).ToShortDateString() != today) {
@@ -126,6 +123,29 @@ namespace Spots.Controllers {
             catch (Exception ex) {
             }
         }
+
+        //Calculate Distance based on current position and the spots lat and lng.
+        public double CalculateDistance (GeoCoordinate currentPosition, double lat, double lon) {
+            if (currentPosition != null && lat != 0 && lon != 0) {
+                var distance = Math.Round(
+                currentPosition.GetDistanceTo(
+                    new GeoCoordinate(
+                        Convert.ToDouble(lat),
+                        Convert.ToDouble(lon)
+                        )
+                    ) / 1000);
+
+                return distance;
+            }
+
+            return Double.NaN;
+        }
+
+        public string GetImage (string image) {
+
+            return "";
+        }
+
 
         //// GET: Spots/Create
         //public ActionResult Create()
@@ -192,5 +212,7 @@ namespace Spots.Controllers {
         //        return View();
         //    }
         //}
+
+
     }
 }

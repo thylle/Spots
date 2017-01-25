@@ -42,12 +42,7 @@ namespace Spots.Models {
             get; set;
         }
 
-        public string Distance
-        {
-            get; set;
-        }
-
-        public double GeoDistance
+        public double Distance
         {
             get; set;
         }
@@ -81,6 +76,11 @@ namespace Spots.Models {
             get; set;
         }
         public string OptimalWaterHeight
+        {
+            get; set;
+        }
+
+        public string WeatherUrl
         {
             get; set;
         }

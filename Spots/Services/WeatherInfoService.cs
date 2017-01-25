@@ -27,9 +27,9 @@ namespace Spots.Services
 
         public static WeatherData GetWeatherFeed(string weatherUrl)
         {
-            if (!string.IsNullOrWhiteSpace(weatherUrl))
-            {
-                using (WebClient client = new WebClient()) {
+            if (!string.IsNullOrWhiteSpace(weatherUrl)){
+                using (WebClient client = new WebClient()){
+                    var correctedUrl = weatherUrl.Replace("forecast.xml", "") + "forecast.xml";
 
                     var weatherResult = new WeatherData();
 
@@ -40,7 +40,7 @@ namespace Spots.Services
                     "(compatible; MSIE 6.0; Windows NT 5.1; " +
                     ".NET CLR 1.1.4322; .NET CLR 2.0.50727)";
 
-                    var result = client.DownloadString(weatherUrl);
+                    var result = client.DownloadString(correctedUrl);
 
                     var reader = new StringReader(result);
                     var resultingMessage = (weatherdata)serializer.Deserialize(reader);
