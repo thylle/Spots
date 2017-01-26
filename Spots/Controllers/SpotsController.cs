@@ -63,7 +63,9 @@ namespace Spots.Controllers {
             currentSpot.OptimalWindDirection = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindDirection);
             currentSpot.OptimalWaterHeight = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWaterHeight);
             currentSpot.Weather = WeatherInfoService.GetWeatherFeed(response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl));
-            currentSpot.WeatherUrl = response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl).ToString().Replace("forecast.xml", "");
+            currentSpot.WeatherUrl = !string.IsNullOrWhiteSpace(response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl)) 
+                ? response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl).ToString().Replace("forecast.xml", "")
+                : "http://www.yr.no/";
 
             //If the last time the last check-in was made is NOT today, we reset it
             if (Convert.ToDateTime(currentSpot.LastCheckInDate).ToShortDateString() != today) {
