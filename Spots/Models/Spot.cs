@@ -41,11 +41,19 @@ namespace Spots.Models {
 
         public string OptimalWaterHeight{get; set;}
 
+
+        //Weather Properties
         public string WeatherUrl {get; set;}
 
         public WeatherData Weather {get; set;}
 
         public bool IsWindSpeedOptimal { get; set; }
         public bool IsWindDirectionOptimal { get; set; }
+        public bool IsSpotOptimal{get; set;}
+
+
+        //Social Properties
+        public string FacebookUrl { get; set; }
+        public string WebsiteUrl { get; set; }
     }
 }

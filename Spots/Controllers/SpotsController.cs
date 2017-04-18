@@ -7,6 +7,7 @@ using Umbraco.Web;
 using Umbraco.Web.WebApi;
 using Spots.Services;
 using System.Device.Location;
+using Spots.ViewModels;
 
 
 namespace Spots.Controllers {
@@ -38,8 +39,11 @@ namespace Spots.Controllers {
                     OptimalWindSpeed = obj.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindSpeed),
                     OptimalWindDirection = obj.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindDirection),
                     Weather = WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl)),
-                    IsWindDirectionOptimal = false,
-                    IsWindSpeedOptimal = false
+                    IsSpotOptimal = IsSpotOptimal(
+                        obj.GetPropertyValue<string>(PropertyAliasConstants.Category), 
+                        obj.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindSpeed),
+                        obj.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindDirection),
+                        WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl)))
                 });
 
             return response;
@@ -66,15 +70,23 @@ namespace Spots.Controllers {
                 : "/resources/images/no-image.jpg";
             currentSpot.LastCheckInDate = response.GetPropertyValue<DateTime>(PropertyAliasConstants.LastCheckInDate);
             currentSpot.CheckIns = response.GetPropertyValue<int>(PropertyAliasConstants.CheckIns);
+
+            //Weather Properties
             currentSpot.OptimalWindSpeed = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindSpeed);
             currentSpot.OptimalWindDirection = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindDirection);
-            currentSpot.OptimalWaterHeight = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWaterHeight);
             currentSpot.Weather = WeatherInfoService.GetWeatherFeed(response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl));
             currentSpot.WeatherUrl = !string.IsNullOrWhiteSpace(response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl))
                 ? response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl).ToString().Replace("forecast.xml", "")
                 : "http://www.yr.no/";
-            currentSpot.IsWindDirectionOptimal = false;
-            currentSpot.IsWindSpeedOptimal = false;
+
+            //Calculate if spot is optimal
+            currentSpot.IsSpotOptimal = IsSpotOptimal(currentSpot.Category, currentSpot.OptimalWindSpeed, currentSpot.OptimalWindDirection, currentSpot.Weather);
+
+
+            //Social Properties
+            currentSpot.FacebookUrl = response.GetPropertyValue<string>(PropertyAliasConstants.FacebookUrl);
+            currentSpot.WebsiteUrl = response.GetPropertyValue<string>(PropertyAliasConstants.WebsiteUrl);
+
 
             //If the last time the last check-in was made is NOT today, we reset it
             if (Convert.ToDateTime(currentSpot.LastCheckInDate).ToShortDateString() != today) {
@@ -150,6 +162,51 @@ namespace Spots.Controllers {
             }
 
             return Double.NaN;
+        }
+
+        
+        public bool IsWindSpeedOptimal (string optimalWindSpeed, WeatherData weather){
+
+            if (!string.IsNullOrWhiteSpace(optimalWindSpeed) && weather != null){
+                int optimalWindSpeedAsInt = Int32.Parse(optimalWindSpeed);
+                var currentWindSpeed = weather.WindSpeed;
+
+                if (currentWindSpeed >= optimalWindSpeedAsInt) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsWindDirectionOptimal (string optimalWindDirection, WeatherData weather) {
+
+            if (!string.IsNullOrWhiteSpace(optimalWindDirection) && weather != null) {
+
+                if (optimalWindDirection.ToUpper() == weather.WindDirection.ToUpper()) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsSpotOptimal(string category, string optimalWindSpeed, string optimalWindDirection, WeatherData weather){
+
+            var speedIsOptimal = IsWindSpeedOptimal(optimalWindSpeed, weather);
+            var directionIsOptimal = IsWindDirectionOptimal(optimalWindDirection, weather);
+
+            //If category is "kite" && speed and direction is optimal
+            if (category == SpotCategories.Kite && speedIsOptimal && directionIsOptimal){
+                return true;
+            }
+
+            //If category is "cable" && speed is NOT optimal and direction is optimal 
+            if (category == SpotCategories.Cable && !speedIsOptimal && directionIsOptimal){
+                return true;
+            }
+
+            return false;
         }
 
         public string GetImage (string image) {

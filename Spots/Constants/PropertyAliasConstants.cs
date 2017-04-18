@@ -21,13 +21,21 @@ namespace Spots.Constants {
         public const string OptimalWaterHeight = "optimalWaterHeight";
 
         public const string WeatherUrl = "weatherUrl";
-        
+
+        //Social properties
+        public const string FacebookUrl = "facebookUrl";
+        public const string WebsiteUrl = "websiteUrl";
+
     }
 
     public class DocumentTypeAliasConstants {
 
         public const string Spots = "Spots";
         public const string Spot = "Spot";
+    }
 
+    public class SpotCategories{
+        public const string Kite = "Kite";
+        public const string Cable = "Cable";
     }
 }
