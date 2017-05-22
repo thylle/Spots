@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 namespace Spots.Constants {
-    public class PropertyAliasConstants {
+    public class PropertyAlias {
         
         public const string Name = "Name";
         public const string Category = "Category";
@@ -28,10 +28,13 @@ namespace Spots.Constants {
 
     }
 
-    public class DocumentTypeAliasConstants {
+    public class DocumentTypeAlias {
 
         public const string Spots = "Spots";
+        public const string SpotFolder = "SpotFolder";
         public const string Spot = "Spot";
+        public const string KiteSpot = "kiteSpot";
+        public const string CableSpot = "cableSpot";
     }
 
     public class SpotCategories{

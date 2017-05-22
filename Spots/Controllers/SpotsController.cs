@@ -22,28 +22,28 @@ namespace Spots.Controllers {
             currentPosition = new GeoCoordinate(Convert.ToDouble(lat), Convert.ToDouble(lon));
 
             var response = helper.TypedContent(spotsContainer.Id)
-                .Descendants(DocumentTypeAliasConstants.Spot)
-                .Where("Visible")
+                .Descendants()
+                .Where(x => x.GetPropertyValue<bool>("umbracoNaviHide") == false && x.DocumentTypeAlias != DocumentTypeAlias.SpotFolder)
                 .Select(obj => new Spot() {
                     Id = obj.Id,
-                    Name = obj.GetPropertyValue<string>(PropertyAliasConstants.Name),
-                    Category = obj.GetPropertyValue<string>(PropertyAliasConstants.Category) ?? "",
-                    Description = obj.GetPropertyValue<string>(PropertyAliasConstants.Description),
-                    Latitude = obj.GetPropertyValue<string>(PropertyAliasConstants.Latitude),
-                    Longitude = obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude),
-                    GoogleMapsLink = "https://maps.google.com/?q=" + obj.GetPropertyValue<string>(PropertyAliasConstants.Latitude) + "," + obj.GetPropertyValue<string>(PropertyAliasConstants.Longitude),
-                    Image = obj.GetPropertyValue<string>(PropertyAliasConstants.Image) != null
-                        ? Umbraco.TypedMedia(obj.GetPropertyValue<string>(PropertyAliasConstants.Image)).Url
+                    Name = obj.GetPropertyValue<string>(PropertyAlias.Name),
+                    Category = obj.GetPropertyValue<string>(PropertyAlias.Category) ?? "",
+                    Description = obj.GetPropertyValue<string>(PropertyAlias.Description),
+                    Latitude = obj.GetPropertyValue<string>(PropertyAlias.Latitude),
+                    Longitude = obj.GetPropertyValue<string>(PropertyAlias.Longitude),
+                    GoogleMapsLink = "https://maps.google.com/?q=" + obj.GetPropertyValue<string>(PropertyAlias.Latitude) + "," + obj.GetPropertyValue<string>(PropertyAlias.Longitude),
+                    Image = obj.GetPropertyValue<string>(PropertyAlias.Image) != null
+                        ? Umbraco.TypedMedia(obj.GetPropertyValue<string>(PropertyAlias.Image)).Url
                         : "/resources/images/no-image.jpg",
-                    Distance = CalculateDistance(currentPosition, obj.GetPropertyValue<double>(PropertyAliasConstants.Latitude), obj.GetPropertyValue<double>(PropertyAliasConstants.Longitude)),
-                    OptimalWindSpeed = obj.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindSpeed),
-                    OptimalWindDirection = obj.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindDirection),
-                    Weather = WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl)),
+                    Distance = CalculateDistance(currentPosition, obj.GetPropertyValue<double>(PropertyAlias.Latitude), obj.GetPropertyValue<double>(PropertyAlias.Longitude)),
+                    OptimalWindSpeed = obj.GetPropertyValue<string>(PropertyAlias.OptimalWindSpeed),
+                    OptimalWindDirection = obj.GetPropertyValue<string>(PropertyAlias.OptimalWindDirection),
+                    Weather = WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAlias.WeatherUrl)),
                     IsSpotOptimal = IsSpotOptimal(
-                        obj.GetPropertyValue<string>(PropertyAliasConstants.Category), 
-                        obj.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindSpeed),
-                        obj.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindDirection),
-                        WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl)))
+                        obj.GetPropertyValue<string>(PropertyAlias.Category), 
+                        obj.GetPropertyValue<string>(PropertyAlias.OptimalWindSpeed),
+                        obj.GetPropertyValue<string>(PropertyAlias.OptimalWindDirection),
+                        WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAlias.WeatherUrl)))
                 });
 
             return response;
@@ -59,24 +59,24 @@ namespace Spots.Controllers {
             var response = helper.Content(spotId);
 
             currentSpot.Id = spotId;
-            currentSpot.Name = response.GetPropertyValue<string>(PropertyAliasConstants.Name);
-            currentSpot.Category = response.GetPropertyValue<string>(PropertyAliasConstants.Category);
-            currentSpot.Description = response.GetPropertyValue<string>(PropertyAliasConstants.Description);
-            currentSpot.Latitude = response.GetPropertyValue<string>(PropertyAliasConstants.Latitude);
-            currentSpot.Longitude = response.GetPropertyValue<string>(PropertyAliasConstants.Longitude);
-            currentSpot.GoogleMapsLink = "https://maps.google.com/?q=" + response.GetPropertyValue<string>(PropertyAliasConstants.Latitude) + "," + response.GetPropertyValue<string>(PropertyAliasConstants.Longitude);
-            currentSpot.Image = response.GetPropertyValue<string>(PropertyAliasConstants.Image) != null
-                ? Umbraco.TypedMedia(response.GetPropertyValue<string>(PropertyAliasConstants.Image)).Url
+            currentSpot.Name = response.GetPropertyValue<string>(PropertyAlias.Name);
+            currentSpot.Category = response.GetPropertyValue<string>(PropertyAlias.Category);
+            currentSpot.Description = response.GetPropertyValue<string>(PropertyAlias.Description);
+            currentSpot.Latitude = response.GetPropertyValue<string>(PropertyAlias.Latitude);
+            currentSpot.Longitude = response.GetPropertyValue<string>(PropertyAlias.Longitude);
+            currentSpot.GoogleMapsLink = "https://maps.google.com/?q=" + response.GetPropertyValue<string>(PropertyAlias.Latitude) + "," + response.GetPropertyValue<string>(PropertyAlias.Longitude);
+            currentSpot.Image = response.GetPropertyValue<string>(PropertyAlias.Image) != null
+                ? Umbraco.TypedMedia(response.GetPropertyValue<string>(PropertyAlias.Image)).Url
                 : "/resources/images/no-image.jpg";
-            currentSpot.LastCheckInDate = response.GetPropertyValue<DateTime>(PropertyAliasConstants.LastCheckInDate);
-            currentSpot.CheckIns = response.GetPropertyValue<int>(PropertyAliasConstants.CheckIns);
+            currentSpot.LastCheckInDate = response.GetPropertyValue<DateTime>(PropertyAlias.LastCheckInDate);
+            currentSpot.CheckIns = response.GetPropertyValue<int>(PropertyAlias.CheckIns);
 
             //Weather Properties
-            currentSpot.OptimalWindSpeed = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindSpeed);
-            currentSpot.OptimalWindDirection = response.GetPropertyValue<string>(PropertyAliasConstants.OptimalWindDirection);
-            currentSpot.Weather = WeatherInfoService.GetWeatherFeed(response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl));
-            currentSpot.WeatherUrl = !string.IsNullOrWhiteSpace(response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl))
-                ? response.GetPropertyValue<string>(PropertyAliasConstants.WeatherUrl).ToString().Replace("forecast.xml", "")
+            currentSpot.OptimalWindSpeed = response.GetPropertyValue<string>(PropertyAlias.OptimalWindSpeed);
+            currentSpot.OptimalWindDirection = response.GetPropertyValue<string>(PropertyAlias.OptimalWindDirection);
+            currentSpot.Weather = WeatherInfoService.GetWeatherFeed(response.GetPropertyValue<string>(PropertyAlias.WeatherUrl));
+            currentSpot.WeatherUrl = !string.IsNullOrWhiteSpace(response.GetPropertyValue<string>(PropertyAlias.WeatherUrl))
+                ? response.GetPropertyValue<string>(PropertyAlias.WeatherUrl).ToString().Replace("forecast.xml", "")
                 : "http://www.yr.no/";
 
             //Calculate if spot is optimal
@@ -84,8 +84,8 @@ namespace Spots.Controllers {
 
 
             //Social Properties
-            currentSpot.FacebookUrl = response.GetPropertyValue<string>(PropertyAliasConstants.FacebookUrl);
-            currentSpot.WebsiteUrl = response.GetPropertyValue<string>(PropertyAliasConstants.WebsiteUrl);
+            currentSpot.FacebookUrl = response.GetPropertyValue<string>(PropertyAlias.FacebookUrl);
+            currentSpot.WebsiteUrl = response.GetPropertyValue<string>(PropertyAlias.WebsiteUrl);
 
 
             //If the last time the last check-in was made is NOT today, we reset it
@@ -104,8 +104,8 @@ namespace Spots.Controllers {
                 var contentService = Services.ContentService;
                 var currentSpot = contentService.GetById(spotId);
 
-                var checkIns = currentSpot.GetValue<int>(PropertyAliasConstants.CheckIns);
-                var lastCheckInDate = currentSpot.GetValue<DateTime>(PropertyAliasConstants.LastCheckInDate).ToShortDateString();
+                var checkIns = currentSpot.GetValue<int>(PropertyAlias.CheckIns);
+                var lastCheckInDate = currentSpot.GetValue<DateTime>(PropertyAlias.LastCheckInDate).ToShortDateString();
                 var today = DateTime.Today.ToShortDateString();
 
                 //If the last time the last check-in was made is today, we add a new check-in
@@ -116,8 +116,8 @@ namespace Spots.Controllers {
                     checkIns = 1;
                 }
 
-                currentSpot.SetValue(PropertyAliasConstants.CheckIns, checkIns);
-                currentSpot.SetValue(PropertyAliasConstants.LastCheckInDate, DateTime.Now);
+                currentSpot.SetValue(PropertyAlias.CheckIns, checkIns);
+                currentSpot.SetValue(PropertyAlias.LastCheckInDate, DateTime.Now);
 
                 contentService.SaveAndPublishWithStatus(currentSpot);
             }
@@ -132,14 +132,14 @@ namespace Spots.Controllers {
             try {
                 var contentService = Services.ContentService;
                 var currentSpot = contentService.GetById(spotId);
-                var checkIns = currentSpot.GetValue<int>(PropertyAliasConstants.CheckIns);
+                var checkIns = currentSpot.GetValue<int>(PropertyAlias.CheckIns);
 
                 //If the last time the last check-in was made is today, we remove a new check-in
                 if (checkIns > 0) {
                     checkIns = checkIns - 1;
                 }
 
-                currentSpot.SetValue(PropertyAliasConstants.CheckIns, checkIns);
+                currentSpot.SetValue(PropertyAlias.CheckIns, checkIns);
 
                 contentService.SaveAndPublishWithStatus(currentSpot);
             }
