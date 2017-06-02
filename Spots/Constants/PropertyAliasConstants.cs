@@ -18,6 +18,7 @@ namespace Spots.Constants {
         //Info properties
         public const string OptimalWindSpeed = "optimalWindSpeed";
         public const string OptimalWindDirection = "optimalWindDirection";
+        public const string OptimalWindDirectionList = "optimalWindDirectionList";
         public const string OptimalWaterHeight = "optimalWaterHeight";
 
         public const string WeatherUrl = "weatherUrl";

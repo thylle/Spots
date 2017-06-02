@@ -16,6 +16,7 @@
                 <th>Lat</th>
                 <th>Long</th>
                 <th>Distance</th>
+                <th>Direction</th>
                 <th>Optimal</th>
             </tr>
             <tr class="" data-ng-repeat="spot in spots | orderBy : 'Distance'">
@@ -26,6 +27,7 @@
                 <td>{{spot.Latitude}}</td>
                 <td>{{spot.Longitude}}</td>
                 <td>{{spot.Distance}}km</td>
+                <td>{{spot.OptimalWindDirectionList}}</td>
                 <td align="right">{{spot.IsSpotOptimal}}</td>
             </tr>
         </table>

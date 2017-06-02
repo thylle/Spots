@@ -38,11 +38,12 @@ namespace Spots.Controllers {
                     Distance = CalculateDistance(currentPosition, obj.GetPropertyValue<double>(PropertyAlias.Latitude), obj.GetPropertyValue<double>(PropertyAlias.Longitude)),
                     OptimalWindSpeed = obj.GetPropertyValue<string>(PropertyAlias.OptimalWindSpeed),
                     OptimalWindDirection = obj.GetPropertyValue<string>(PropertyAlias.OptimalWindDirection),
-                    Weather = WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAlias.WeatherUrl)),
+                    OptimalWindDirectionList = obj.GetPropertyValue<string>(PropertyAlias.OptimalWindDirectionList),
+                    //Weather = WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAlias.WeatherUrl))
                     IsSpotOptimal = IsSpotOptimal(
-                        obj.GetPropertyValue<string>(PropertyAlias.Category), 
+                        obj.GetPropertyValue<string>(PropertyAlias.Category),
                         obj.GetPropertyValue<string>(PropertyAlias.OptimalWindSpeed),
-                        obj.GetPropertyValue<string>(PropertyAlias.OptimalWindDirection),
+                        obj.GetPropertyValue<string>(PropertyAlias.OptimalWindDirectionList),
                         WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAlias.WeatherUrl)))
                 });
 
@@ -179,11 +180,13 @@ namespace Spots.Controllers {
             return false;
         }
 
-        public bool IsWindDirectionOptimal (string optimalWindDirection, WeatherData weather) {
+        public bool IsWindDirectionOptimal (string optimalWindDirectionList, WeatherData weather) {
 
-            if (!string.IsNullOrWhiteSpace(optimalWindDirection) && weather != null) {
+            if (!string.IsNullOrWhiteSpace(optimalWindDirectionList) && weather != null){
+                var splittedList = optimalWindDirectionList.ToUpper().Split(',');
+                var currentWind = weather.WindDirection.ToUpper();
 
-                if (optimalWindDirection.ToUpper() == weather.WindDirection.ToUpper()) {
+                if (splittedList.Any(t => t == currentWind)){
                     return true;
                 }
             }
@@ -191,10 +194,10 @@ namespace Spots.Controllers {
             return false;
         }
 
-        public bool IsSpotOptimal(string category, string optimalWindSpeed, string optimalWindDirection, WeatherData weather){
+        public bool IsSpotOptimal(string category, string optimalWindSpeed, string optimalWindDirectionList, WeatherData weather){
 
             var speedIsOptimal = IsWindSpeedOptimal(optimalWindSpeed, weather);
-            var directionIsOptimal = IsWindDirectionOptimal(optimalWindDirection, weather);
+            var directionIsOptimal = IsWindDirectionOptimal(optimalWindDirectionList, weather);
 
             //If category is "kite" && speed and direction is optimal
             if (category == SpotCategories.Kite && speedIsOptimal && directionIsOptimal){

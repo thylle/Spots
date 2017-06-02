@@ -38,6 +38,7 @@ namespace Spots.Models {
         public string OptimalWindSpeed{get; set;}
 
         public string OptimalWindDirection{get; set;}
+        public string OptimalWindDirectionList{get; set;}
 
         public string OptimalWaterHeight{get; set;}
 
