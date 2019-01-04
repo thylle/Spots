@@ -46,7 +46,7 @@ namespace Spots.Models {
         //Weather Properties
         public string WeatherUrl {get; set;}
 
-        public WeatherData Weather {get; set;}
+        public List<WeatherData> Weather {get; set;}
 
         public bool IsWindSpeedOptimal { get; set; }
         public bool IsWindDirectionOptimal { get; set; }

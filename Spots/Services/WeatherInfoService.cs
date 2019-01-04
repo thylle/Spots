@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -6,14 +7,11 @@ using System.Xml.Serialization;
 using Spots.ViewModels;
 using Umbraco.Core;
 
-namespace Spots.Services
-{
-    public static class WeatherInfoService
-    {
+namespace Spots.Services {
+    public static class WeatherInfoService {
         private const string ApiUrl = "http://www.yr.no/place/Denmark/Central_Jutland/Borresknob/forecast.xml";
 
-        public static WeatherData GetWeatherDescription()
-        {
+        public static WeatherData GetWeatherDescription () {
             var cacheHelper = new CacheHelper();
 
             //var cachedValue = (WeatherData)cacheHelper.RuntimeCache.GetCacheItem("weather_data", GetWeatherFeed, TimeSpan.FromMinutes(60));
@@ -25,13 +23,12 @@ namespace Spots.Services
             return null;
         }
 
-        public static WeatherData GetWeatherFeed(string weatherUrl)
-        {
-            if (!string.IsNullOrWhiteSpace(weatherUrl)){
-                using (WebClient client = new WebClient()){
+        public static List<WeatherData> GetWeatherFeed (string weatherUrl) {
+            if (!string.IsNullOrWhiteSpace(weatherUrl)) {
+                using (WebClient client = new WebClient()) {
                     var correctedUrl = weatherUrl.Replace("forecast.xml", "") + "forecast.xml";
 
-                    var weatherResult = new WeatherData();
+                    var weatherResultList = new List<WeatherData>();
 
                     var currentTime = DateTime.Now;
                     var serializer = new XmlSerializer(typeof(weatherdata));
@@ -47,58 +44,22 @@ namespace Spots.Services
 
                     if (resultingMessage != null && resultingMessage.forecast != null && resultingMessage.forecast.tabular != null) {
                         var times = resultingMessage.forecast.tabular;
+
                         if (times.Any()) {
-                            if (times.Any(x => x.from < currentTime && x.to > currentTime)) {
-                                var time = times.First(x => x.from < currentTime && x.to > currentTime);
-
-                                if (time != null && time.symbol != null && !string.IsNullOrWhiteSpace(time.symbol.name)) {
-                                    weatherResult.WeatherDescription = time.symbol.name;
-                                }
-
-                                if (time != null && time.temperature != null) {
-                                    weatherResult.Degrees = time.temperature.value;
-                                }
-
-                                if (time != null && time.windDirection != null) {
-                                    weatherResult.WindDirection = time.windDirection.code;
-                                }
-
-                                if (time != null && time.windDirection != null) {
-                                    weatherResult.WindDirectionDeg = time.windDirection.deg;
-                                }
-
-                                if (time != null && time.windSpeed != null) {
-                                    weatherResult.WindSpeed = time.windSpeed.mps;
-                                }
-                            }
-                            else {
-                                var time = times.OrderBy(x => x.from).First();
-
-                                if (time.symbol != null && !string.IsNullOrWhiteSpace(time.symbol.name)) {
-                                    weatherResult.WeatherDescription = time.symbol.name;
-                                }
-
-                                if (time.temperature != null) {
-                                    weatherResult.Degrees = time.temperature.value;
-                                }
-
-                                if (time.windDirection != null) {
-                                    weatherResult.WindDirection = time.windDirection.code;
-                                }
-
-                                if (time.windDirection != null) {
-                                    weatherResult.WindDirectionDeg = time.windDirection.deg;
-                                }
-
-                                if (time.windSpeed != null) {
-                                    weatherResult.WindSpeed = time.windSpeed.mps;
-                                }
-                            }
-
+                            weatherResultList.AddRange(
+                                from item in times
+                                where item != null && item.@from.Day == currentTime.Day
+                                select new WeatherData() {
+                                    WeatherDescription = item.symbol.name,
+                                    Degrees = item.temperature.value,
+                                    WindDirection = item.windDirection.code,
+                                    WindDirectionDeg = item.windDirection.deg,
+                                    WindSpeed = item.windSpeed.mps
+                                });
                         }
                     }
 
-                    return weatherResult;
+                    return weatherResultList;
                 }
             }
 

@@ -5,8 +5,36 @@
 
 <section>
     <div class="container">
-         <h1>@*@CurrentPage.Name*@</h1>
+        <h1>Current Spot: </h1>
+        <table class="spots table">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Lat</th>
+                <th>Long</th>
+                <th>CheckIns</th>
+                <th>Direction</th>
+                <th style="text-align: right">Optimal</th>
+            </tr>
+            <tr class="">
+                <td>{{currentSpot.Id}}</td>
+                <td>{{currentSpot.Name}}</td>
+                <td>{{currentSpot.Category}}</td>
+                <td>{{currentSpot.Latitude}}</td>
+                <td>{{currentSpot.Longitude}}</td>
+                <td>{{currentSpot.CheckIns}}</td>
+                <td>{{currentSpot.OptimalWindDirectionList}}</td>
+                <td align="right">{{currentSpot.IsSpotOptimal}}</td>
+            </tr>
+        </table>
 
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <h1>The list</h1>
         <table class="spots table">
             <tr>
                 <th>ID</th>
@@ -17,7 +45,7 @@
                 <th>Long</th>
                 <th>Distance</th>
                 <th>Direction</th>
-                <th>Optimal</th>
+                <th style="text-align: right">Optimal</th>
             </tr>
             <tr class="" data-ng-repeat="spot in spots | orderBy : 'Distance'">
                 <td>{{spot.Id}}</td>

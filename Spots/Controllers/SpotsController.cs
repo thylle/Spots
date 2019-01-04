@@ -39,7 +39,7 @@ namespace Spots.Controllers {
                     OptimalWindSpeed = obj.GetPropertyValue<string>(PropertyAlias.OptimalWindSpeed),
                     OptimalWindDirection = obj.GetPropertyValue<string>(PropertyAlias.OptimalWindDirection),
                     OptimalWindDirectionList = obj.GetPropertyValue<string>(PropertyAlias.OptimalWindDirectionList),
-                    //Weather = WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAlias.WeatherUrl))
+                    Weather = WeatherInfoService.GetWeatherFeed(obj.GetPropertyValue<string>(PropertyAlias.WeatherUrl)),
                     IsSpotOptimal = IsSpotOptimal(
                         obj.GetPropertyValue<string>(PropertyAlias.Category),
                         obj.GetPropertyValue<string>(PropertyAlias.OptimalWindSpeed),
@@ -75,13 +75,14 @@ namespace Spots.Controllers {
             //Weather Properties
             currentSpot.OptimalWindSpeed = response.GetPropertyValue<string>(PropertyAlias.OptimalWindSpeed);
             currentSpot.OptimalWindDirection = response.GetPropertyValue<string>(PropertyAlias.OptimalWindDirection);
+            currentSpot.OptimalWindDirectionList = response.GetPropertyValue<string>(PropertyAlias.OptimalWindDirectionList);
             currentSpot.Weather = WeatherInfoService.GetWeatherFeed(response.GetPropertyValue<string>(PropertyAlias.WeatherUrl));
             currentSpot.WeatherUrl = !string.IsNullOrWhiteSpace(response.GetPropertyValue<string>(PropertyAlias.WeatherUrl))
                 ? response.GetPropertyValue<string>(PropertyAlias.WeatherUrl).ToString().Replace("forecast.xml", "")
                 : "http://www.yr.no/";
 
             //Calculate if spot is optimal
-            currentSpot.IsSpotOptimal = IsSpotOptimal(currentSpot.Category, currentSpot.OptimalWindSpeed, currentSpot.OptimalWindDirection, currentSpot.Weather);
+            currentSpot.IsSpotOptimal = IsSpotOptimal(currentSpot.Category, currentSpot.OptimalWindSpeed, currentSpot.OptimalWindDirectionList, currentSpot.Weather);
 
 
             //Social Properties
@@ -194,19 +195,21 @@ namespace Spots.Controllers {
             return false;
         }
 
-        public bool IsSpotOptimal(string category, string optimalWindSpeed, string optimalWindDirectionList, WeatherData weather){
+        public bool IsSpotOptimal(string category, string optimalWindSpeed, string optimalWindDirectionList, List<WeatherData> weather){
 
-            var speedIsOptimal = IsWindSpeedOptimal(optimalWindSpeed, weather);
-            var directionIsOptimal = IsWindDirectionOptimal(optimalWindDirectionList, weather);
+            if (weather != null){
+                var speedIsOptimal = IsWindSpeedOptimal(optimalWindSpeed, weather.First());
+                var directionIsOptimal = IsWindDirectionOptimal(optimalWindDirectionList, weather.First());
 
-            //If category is "kite" && speed and direction is optimal
-            if (category == SpotCategories.Kite && speedIsOptimal && directionIsOptimal){
-                return true;
-            }
+                //If category is "kite" && speed and direction is optimal
+                if (category == SpotCategories.Kite && speedIsOptimal && directionIsOptimal) {
+                    return true;
+                }
 
-            //If category is "cable" && speed is NOT optimal and direction is optimal 
-            if (category == SpotCategories.Cable && !speedIsOptimal && directionIsOptimal){
-                return true;
+                //If category is "cable" && speed is NOT optimal and direction is optimal 
+                if (category == SpotCategories.Cable && !speedIsOptimal && directionIsOptimal) {
+                    return true;
+                }
             }
 
             return false;

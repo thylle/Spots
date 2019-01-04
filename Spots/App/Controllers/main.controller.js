@@ -11,6 +11,7 @@
 
         $scope.$timeout = $timeout;
         $scope.spots = null;
+        $scope.currentSpot = null;
         $scope.activeId = null;
 
 
@@ -31,6 +32,16 @@
                 $scope.activeId = null;
             }
         }
+
+
+        //Get predefined spot "Borre Knob"
+        spotsService.getSpotById(1055).success(function (response) {
+            console.log("getCurrentSpot", response);
+            $scope.currentSpot = response;
+
+        }).error(function () {
+            alert("error getting current spot");
+        });
 
     }
 })();
